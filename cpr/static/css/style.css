@@ -1,0 +1,352 @@
+.home {
+  overflow-y: hidden;
+}
+
+#home-background-img {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  z-index: -1;
+  background-size: cover;
+}
+
+#home-background-img-2 {
+  display: none;
+}
+
+
+nav {
+  background: transparent;
+}
+
+body{
+  background-color: #EEEEEE;
+}
+
+/* ===================== Hero Page Styles ================================ */
+
+.heading {
+  padding-top: 12rem;
+  width: 55%;
+  word-wrap: break-word;
+  padding-left: 5rem;
+  font-family: "Libre Caslon Text";
+  font-weight: 700;
+  font-size: 2.3rem;
+  color: #303841;
+  text-shadow: 1px 1px 4px #FF5722;
+  animation: fade-in linear 2s;
+  position: relative;
+}
+
+.heading .topic {
+  font-weight: 700;
+  font-size: 3rem;
+  font-family: "Libre Caslon Text";
+  letter-spacing: 1.2px;
+  color: #272121;
+}
+
+@keyframes fade-in {
+  0%{opacity: 0;
+  left: -5%;
+  }
+
+  100%{opacity: 1;
+  left: 0%;
+  }
+}
+
+.subheading {
+  padding-left: 6rem;
+  font-family: 'Work Sans';
+  font-size: 1.5rem;
+  word-wrap: break-word;
+  width: 40%;
+  font-weight: 600;
+  color:#363333;
+  margin-top: 1rem;
+  position: relative;
+  animation: fade-in-text linear 2s;
+}
+
+@keyframes fade-in-text {
+  0%{opacity: 0;
+  right: -5%;
+  }
+
+  100%{opacity: 1;
+  right: 0%;
+  }
+}
+
+.button-wrapper-home{
+  margin-left: 15%;
+  margin-top: 2rem;
+}
+
+.get-started {
+  width: fit-content;
+  padding: 15px 25px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  color: #EEEEEE;
+  font-family: 'Work Sans';
+  font-weight: 700;
+  background-color:#AC0D0D;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.get-started:hover{
+  animation: color ease-in-out 0.5s;
+  background-color:#eeeeee;
+    color: #8C0000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    bottom: 4px;
+    left: 4px;
+}
+
+@keyframes color {
+  0% {
+    background-color:#AC0D0D;
+    color:#eeeeee;
+  }
+
+  100% {
+    background-color:#eeeeee;
+    color: #8C0000;
+  }
+}
+
+@media screen and (max-width: 953px) {
+  .heading {
+    width: 75%;
+  }
+
+  .subheading {
+    width: 58%;
+  }
+}
+
+@media screen and (max-width: 768px){
+  #home-background-img-2 {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  .heading, .subheading{
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    animation: none;
+    padding: 2rem 4rem;
+  }
+
+  #home-background-img {
+    display: none;
+  }
+
+  .button-wrapper-home {
+    text-align: center;
+    padding: auto;
+    margin: 1.5rem auto;
+  }
+}
+
+@media screen and (max-width: 572px){
+  .heading .topic, .heading {
+    font-size: 1.8rem;
+    overflow-x: hidden;
+    word-wrap: break-word;
+  }
+}
+
+@media screen and (max-width: 400px){
+  .heading .topic, .heading {
+    font-size: 1.3rem;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    padding:  4rem 10px;
+  }
+
+  .subheading{
+    font-size: 1rem;
+  }
+}
+
+/* =============================Navbar====================================*/
+
+@media screen and (max-width: 380px){
+  .navbar-brand {
+    width: 50%;
+  }
+}
+
+.logo {
+  width: 40%;
+}
+
+@media screen and (max-width: 767.5px){
+.navbar {
+  background-color: white;
+}
+}
+
+.nav-link {
+  color: #363333;
+  font-size: 1.2rem;
+  margin: 0 12px;
+  font-family: 'Work Sans';
+}
+
+.active {
+  font-weight: bolder;
+  border-bottom: #E16428 5px solid;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 767.5px){
+  .active {
+    font-weight: bolder;
+    border-bottom: none;
+  }
+}
+
+.nav-link:hover {
+  font-weight: bolder;
+}
+
+/* ==============================Getting Started Style===================================*/
+
+.row .mainHeading {
+  margin: 1rem auto;
+  text-align: center;
+  font-family: 'Libre Caslon Text';
+  font-weight: 900;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.form-text{
+  padding:0  5rem;
+  margin: 2rem 0;
+  color: #363333;
+  font-family: 'Work Sans';
+
+}
+
+@media screen and (max-width: 790px){
+  .form-text{
+    margin: 2rem auto;
+    text-align: center;
+    padding:0 2rem;
+  }
+}
+
+.recc {
+  color: #ff5722;
+  text-shadow: 0 1px 1px #ff5722;
+  border-bottom: #272121 3px solid;
+  font-family: 'IBM Plex Mono';
+}
+
+/* =====================Form Style =================*/
+
+#Name, #Email{
+  width: 80%;
+  margin-left: 1rem;
+}
+
+label{
+  font-size: 1.2rem;
+  font-family: 'Work Sans';
+  font-weight: bold;
+}
+
+small{
+  margin-left: 2rem;
+  font-family: 'Work Sans';
+}
+
+.form-button{
+  width: max-content;
+  height: 100%;
+  padding: 10px 2rem;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  /* background-color: #E16428; */
+  color: #E16428;
+  font-family: 'Work Sans';
+  font-weight: bold;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
+}
+
+.form-button:hover {
+  cursor: pointer;
+  /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); */
+}
+
+.modal-button{
+  width: max-content;
+  height: 100%;
+  padding: 10px 2rem;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background-color: #E16428;
+  color: #EEEEEE;
+  font-family: 'Work Sans';
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.modal-button:hover {
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-headings {
+  color: #363333;
+  font-family: 'IBM Plex Mono';
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.form-select {
+  width: 80%;
+}
+
+option, optgroup {
+  width: 90%;
+}
+
+.skill-name-style {
+  font-family: 'Work Sans';
+  font-size: 1.5rem;
+  color: #363333;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.skill-level-style {
+  font-size: 1.1rem;
+  color: #272121;
+  margin-bottom: 5px;
+}
+
+.submit-wrapper {
+  text-align: center;
+}
+/*====================== output.html============================= */
+.centering{
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+}

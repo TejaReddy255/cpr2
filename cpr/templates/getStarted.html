@@ -1,0 +1,1374 @@
+{% extends 'layout.html' %} {% block content %}
+<nav class="navbar navbar-expand-md navbar-light">
+  <a class="navbar-brand" href="{{url_for('home')}}"
+    ><img class="logo" src="../static/images/logo.png"
+  /></a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarToggler"
+    aria-controls="navbarToggler"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarToggler">
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a href="{{url_for('home')}}" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a href="{{url_for('getStarted')}}" class="nav-link">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{url_for('aboutUs')}}" class="nav-link">About Us</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{url_for('logout')}}" class="nav-link">logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script type="text/javascript">
+  const skills = [];
+  const tech = [];
+</script>
+
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <h1 class="mainHeading">
+        <span style="color: #e16428">Career Path Recommendation</span><br />
+        <span style="color: #272121">using Machine Learning</span>
+      </h1>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <h3 class="form-text">
+        Fill the below form for getting
+        <span class="recc">recommendation</span>
+        that are best suited for you
+      </h3>
+    </div>
+  </div>
+
+  <div class="container">
+    <form method="get" action="">
+      <!--Name Input-->
+      <div class="form-group">
+        <label for="Name" class="form-headings">Name:</label>
+        <input
+          type="text"
+          id="Name"
+          class="form-control"
+          placeholder="Enter your name"
+        />
+      </div>
+
+      <!--Email Input-->
+      <div class="form-group">
+        <label for="Email" class="form-headings">Email:</label>
+        <input
+          type="email"
+          id="Email"
+          class="form-control"
+          placeholder="Enter your email"
+        />
+        <small>We will keep your email address confidential.</small>
+      </div>
+
+      <hr class="form-hr" />
+
+      <!--Skills Input-->
+      <div class="form-group">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3 col-md-6">
+              <p class="form-headings">Skills</p>
+            </div>
+            <div class="col-lg-9 col-md-6">
+              <div class="container-fluid" id="skillContainer">
+                <div class="row" id="SkillBody"></div>
+                <div class="row button-wrapper">
+                  <button
+                    class="addSkill form-button"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#skillModal"
+                  >
+                    + Add Skill
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="form-hr" />
+
+      <!--Internship Input-->
+      <div class="form-group">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3 col-md-6">
+              <p class="form-headings">Internship</p>
+            </div>
+            <div class="col-lg-9 col-md-6">
+              <div class="container-fluid" id="InternshipContainer">
+                <div class="row" id="InternshipBody"></div>
+                <div class="row button-wrapper">
+                  <button
+                    class="addInternship form-button"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#InternshipModal"
+                  >
+                    + Add Internship
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="form-hr" />
+
+      <!--Traing and Certification Input-->
+      <div class="form-group">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3 col-md-6">
+              <p class="form-headings">Trainings and Certifications</p>
+            </div>
+            <div class="col-lg-9 col-md-6">
+              <div class="container-fluid" id="TrainingContainer">
+                <div class="row" id="TrainingBody"></div>
+                <div class="row button-wrapper">
+                  <button
+                    class="addTraining form-button"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#TrainingModal"
+                  >
+                    + Add Training
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="form-hr" />
+
+    </form>
+    <div class="submit-wrapper">
+      <!--<a href="{{url_for('output')}}"
+        > -->
+        <button type="submit" class="modal-button" onclick="submitFunc()">Submit</button>
+    </div>
+  </div>
+</section>
+
+<!--Submit Function-->
+<script>
+  function submitFunc() {
+    const xhr = new XMLHttpRequest();
+    skills.concat(tech);
+    sender = skills;
+    xhr.open("POST", '/get-started');
+    xhr.send(sender);
+  }
+</script>
+
+<!--Skills Modal-->
+<div
+  class="modal fade"
+  id="skillModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+  aria-labelledby="skillModal"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Skill</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="skill-form">
+          <div class="form-group">
+            <label for="SkillName">Name of the skill:</label>
+            <select id="SkillName" class="form-select">
+              <option value="" select></option>
+              <optgroup label="A">
+                <option value="Adobe Photoshop">Adobe Photoshop</option>
+                <option value="Adobe XD">Adobe XD</option>
+                <option value="Agile Development">Agile development</option>
+                <option value="Ajax">Ajax</option>
+                <option value="Alteryx">Alteryx</option>
+                <option value="Amazon Redshift">Amazon Redshift</option>
+                <option value="Analog Design and Analysis">
+                  Analog Design and Analysis
+                </option>
+                <option value="Analytics">Analytics</option>
+                <option value="Android Studio">Android Studio</option>
+                <option value="Angular.js">Angular.js</option>
+                <option value="Ansible">Ansible</option>
+                <option value="Apache">Apache</option>
+                <option value="Apache Spark">Apache Spark</option>
+                <option value="APIs">APIs</option>
+                <option value="Appium">Appium</option>
+                <option value="Apple Xcode IDE">Apple Xcode IDE</option>
+                <option value="Application Development">
+                  Application development
+                </option>
+                <option value="AR/VR">AR/VR</option>
+                <option value="Artificial Intelligence">
+                  Artificial Intelligence
+                </option>
+                <option value="AWS">AWS</option>
+                <option value="Azure">Azure</option>
+                <option value="Azure Data ecosystem">
+                  Azure Data ecosystem
+                </option>
+              </optgroup>
+              <optgroup label="B">
+                <option value="bash">Bash</option>
+                <option value="Big data">Big data</option>
+                <option value="Blockchain">Blockchain</option>
+                <option value="Blockchain Architecture">
+                  Blockchain Architecture
+                </option>
+                <option value="Bootstrap">Bootstrap</option>
+                <option value="Bugfixes">Bugfixes</option>
+              </optgroup>
+              <optgroup label="C">
+                <option value="C">C Language</option>
+                <option value="C#">C#</option>
+                <option value="C++">C++/ Cpp</option>
+                <option value="CAD">CAD</option>
+                <option value="Cadence">Cadence</option>
+                <option value="Calculus">Calculus</option>
+                <option value="CDPS">CDPS</option>
+                <option value="Circuit Board Design">
+                  Circuit Board Design
+                </option>
+                <option value="Cloud Computing">Cloud Computing</option>
+                <option value="Cloud Security">Cloud Security</option>
+                <option value="COBOL">COBOL</option>
+                <option value="Command-line Utilities">
+                  Command-line Utilities
+                </option>
+                <option value="Communication Protocols">
+                  Communication Protocols
+                </option>
+                <option value="Computer Forensic Skills">
+                  Computer Forensic Skills
+                </option>
+                <option value="Computer Hardware knowledge">
+                  Computer Hardware knowledge
+                </option>
+                <option value="Computer Servers">Computer Servers</option>
+                <option value="Continuous Integration">
+                  Continuous Integration
+                </option>
+                <option value="Continuous Monitoring">
+                  Continuous Monitoring
+                </option>
+                <option value="CouchDB">CouchDB</option>
+                <option value="Cross Team's Environments">
+                  Cross Team's Environments
+                </option>
+                <option value="Cryptography">Cryptography</option>
+                <option value="CSS3">CSS3</option>
+                <option value="Customer Relationship Management">
+                  Customer Relationship Management
+                </option>
+                <option value="Cyber Security">Cyber Security</option>
+              </optgroup>
+              <optgroup label="D">
+                <option value="Data Analysis">Data Analysis</option>
+                <option value="Data Cleaning">Data Cleaning</option>
+                <option value="Data Mining">Data Mining</option>
+                <option value="Data Modeling">Data Modeling</option>
+                <option value="Data Privacy">Data Privacy</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Data Structures and Algorithms">
+                  Data Structures and Algorithms
+                </option>
+                <option value="Data Visualization tools">
+                  Data Visualization tools
+                </option>
+                <option value="Data Warehousing">Data Warehousing</option>
+                <option value="Data Wrangling">Data Wrangling</option>
+                <option value="Database">Database</option>
+                <option value="Database Architecture">
+                  Database Architecture
+                </option>
+                <option value="Debugging">Debugging</option>
+                <option value="Deep Learning">Deep Learning</option>
+                <option value="Descriptive Analysis">
+                  Descriptive Analysis
+                </option>
+                <option value="DevOps">DevOps</option>
+                <option value="DigitalOps">DigitalOps</option>
+                <option value="Disaster Recovery">Disaster Recovery</option>
+                <option value="Distributed Systems">Distributed Systems</option>
+                <option value="Django">Django</option>
+                <option value="Docker">Docker</option>
+              </optgroup>
+              <optgroup label="E">
+                <option value="Ember.js">Ember.js</option>
+                <option value="ETL">ETL</option>
+                <option value="Excel">Excel</option>
+                <option value="Express.js">Express.js</option>
+              </optgroup>
+              <optgroup label="F">
+                <option value="Figma">Figma</option>
+                <option value="File Formatting">File Formatting</option>
+                <option value="Firewall">Firewall</option>
+                <option value="Firmware Development">
+                  Firmware Development
+                </option>
+                <option value="Flask">Flask</option>
+                <option value="Flume">Flume</option>
+                <option value="Flutter">Flutter</option>
+              </optgroup>
+              <optgroup label="G">
+                <option value="Game Development">Game Development</option>
+                <option value="Game Engine">Game Engine</option>
+                <option value="Git">Git</option>
+                <option value="Github">Github</option>
+                <option value="Go Lang">Go Lang</option>
+                <option value="Google Cloud">Google Cloud</option>
+                <option value="Graphic Design">Graphic Design</option>
+              </optgroup>
+              <optgroup label="H">
+                <option value="Hacking">Hacking</option>
+                <option value="Hadoop">Hadoop</option>
+                <option value="Hadoop ecosystem">Hadoop ecosystem</option>
+                <option value="Halo">Halo</option>
+                <option value="HBase">HBase</option>
+                <option value="HDFS">HDFS</option>
+                <option value="Hive HQL">Hive HQL</option>
+                <option value="HTML5">HTML5</option>
+                <option value="Human Pyschology">Human Pyschology</option>
+              </optgroup>
+              <optgroup label="I">
+                <option value="Improvado">Improvado</option>
+                <option value="Information Architecture">
+                  Information Architecture
+                </option>
+                <option value="Information Security">
+                  Information Security
+                </option>
+                <option value="Infrastructure Security">
+                  Infrastructure Security
+                </option>
+                <option value="integrated development environment (IDE)">
+                  Integrated development environment (IDE)
+                </option>
+                <option
+                  value="Intelligent Business Project Management Suites (iBPMS)"
+                >
+                  Intelligent Business Project Management Suites (iBPMS)
+                </option>
+                <option value="Interaction Design">Interaction Design</option>
+                <option value="iOS">iOS</option>
+                <option value="IOT">IOT</option>
+              </optgroup>
+              <optgroup label="J">
+                <option value="JUnit">JUnit</option>
+                <option value="Java">Java</option>
+                <option value="Javascript">Javascript</option>
+                <option value="jQuery">jQuery</option>
+                <option value="Json">Json</option>
+              </optgroup>
+              <optgroup label="K">
+                <option value="Kafka">Kafka</option>
+                <option value="Kotlin">Kotlin</option>
+                <option value="Kubernetes">Kubernetes</option>
+              </optgroup>
+              <optgroup label="L">
+                <optgroup label="Lead Designer">Lead Designer</optgroup>
+                <option value="Linear Algebra">Linear Algebra</option>
+                <option value="Linux">Linux</option>
+                <option value="Lisp">Lisp</option>
+              </optgroup>
+              <optgroup label="M">
+                <option value="3D Modelling">3D Modelling</option>
+                <option value="Machine Learning">Machine Learning</option>
+                <option value="Matlab">Matlab</option>
+                <option value="Maya">Maya</option>
+                <option value="Microsoft Access">Microsoft Access</option>
+                <option value="Microsoft Administration">
+                  Microsoft Administration
+                </option>
+                <option value="MongoDb">MongoDb</option>
+                <option value="MPLS">MPLS</option>
+                <option value="MySQL">MySQL</option>
+              </optgroup>
+              <optgroup label="N">
+                <option value=".Net">.Net</option>
+                <option value="Natural Language Processing (NLP)">
+                  Natural Language Processing (NLP)
+                </option>
+                <option value="Network Analyzers">Network Analyzers</option>
+                <option value="Network Infrastructure">Network Infrastructure</option>
+                <option value="Network Protocols">Network Protocols</option>
+                <option value="Network Security">Network Security</option>
+                <option value="Network Switches">Network Switches</option>
+                <option value="Networking">Networking</option>
+                <option value="Neural Networks">Neural Networks</option>
+                <option value="NLTK">NLTK</option>
+                <option value="Node.js">Node.js</option>
+                <option value="NoSQL">NoSQL</option>
+              </optgroup>
+              <optgroup label="O">
+                <option value="Operating system">Operating system</option>
+                <option value="Oracle">Oracle</option>
+                <option value="Openstack">Openstack</option>
+              </optgroup>
+              <optgroup label="P">
+                <option value="Peer to Peer Network Security">Peer to Peer Network Security</option>
+                <option value="Perl">Perl</option>
+                <option value="PHP">PHP</option>
+                <option value="Pig">Pig</option>
+                <option value="Postman">Postman</option>
+                <option value="Powerbi">Powerbi</option>
+                <option value="PowerShell">PowerShell</option>
+                <option value="Probability">Probability</option>
+                <option value="Problem Solving">Problem Solving</option>
+                <optgroup label="Process Design">Process Design</optgroup>
+                <option value="Product Enhancement">Product Enhancement</option>
+                <option value="Project Management Skills">Project Management Skills</option>
+                <option value="Prolog">Prolog</option>
+                <option value="Prototyping">Prototyping</option>
+                <option value="Python">Python</option>
+              </optgroup>
+              <optgroup label="R">
+                <option value="R">R</option>
+                <option value="React.js">React.js</option>
+                <option value="Relational Databases">
+                  Relational Databases
+                </option>
+                <option value="RF Development">RF Development</option>
+                <option value="Risk Management">Risk Management</option>
+                <option value="RPA">RPA</option>
+                <option value="Ruby">Ruby</option>
+              </optgroup>
+              <optgroup label="S">
+                <option value="SaaS">SaaS</option>
+                <option value="SAP">SAP</option>
+                <option value="SAS">SAS</option>
+                <option value="Scala">Scala</option>
+                <option value="Search Engine Optimization (SEO)">
+                  Search Engine Optimization (SEO)
+                </option>
+                <option value="Search Experience Optimization (SXO)">
+                  Search Experience Optimization (SXO)
+                </option>
+                <option value="Security Automation">Security Automation</option>
+                <option value="Security Principles">Security Principles</option>
+                <option value="Security Protocols">Security Protocols</option>
+                <option value="Secure SDLC">Secure SDLC</option> 
+                <option value="Smart Contracts">Smart Contracts</option>
+                <option value="SnowPipe">SnowPipe</option>
+                <option value="SnowSQL">SnowSQL</option>
+                <option value="SOAP">SOAP</option>
+                <option value="SOC">SOC</option>
+                <option value="Software Development">
+                  Software Development
+                </option>
+                <option value="Software Development Life Cycle (SDLC)">Software Development Life Cycle (SDLC)</option>
+                <option value="Software Engineering">
+                  Software Engineering
+                </option>
+                <option value="Software Testing">Software Testing</option>
+                <option value="Solidity">Solidity</option>
+                <option value="Source Code Management">
+                  Source Code Management
+                </option>
+                <option value="Spatial reasoning">Spatial reasoning</option>
+                <option value="SPI">SPI</option>
+                <option value="SPSS">SPSS</option>
+                <option value="SQL">SQL</option>
+                <option value="SQL Server">SQL Server</option>
+                <option value="Sqoop">Sqoop</option>
+                <option value="Statistics">Statistics</option>
+                <option value="Streams">Streams</option>
+                <option value="Swagger">Swagger</option>
+                <option value="Swift">Swift</option>
+                <option value="Switching and Routing">
+                  Switching and Routing
+                </option>
+                <option value="Syntactic & Semantic Parsing">Syntactic & Semantic Parsing</option>
+                <option value="System Architecture">System Architecture</option>
+                <option value="System Design">System Design</option>
+                <option value="System Development">System Development</option>
+              </optgroup>
+              <optgroup label="T">
+                <option value="tableau">tableau</option>
+                <option value="Tcl">Tcl</option>
+                <option value="TensorFlow">TensorFlow</option>
+                <option value="Testing">Testing</option>
+                <option value="Troubleshooting">Troubleshooting</option>
+                <option value="Truffle">Truffle</option>
+                <option value="Typescript">Typescripts</option>
+                <option value="Typography">Typography</option>
+              </optgroup>
+              <optgroup label="U">
+                <option value="UI prototyping">UI prototyping</option>
+                <option value="UI ToolKits and Frameworks">
+                  UI ToolKits and Frameworks
+                </option>
+                <option value="UI/ UX Design">UI/ UX Design</option>
+                <option value="UML">UML</option>
+                <option value="Unity">Unity</option>
+                <option value="Unix">Unix</option>
+                <option value="Unreal Engine">Unreal Engine</option>
+                <option value="User Experience">User Experience</option>
+                <option value="User Interface">User Interface</option>
+                <option value="User testing">User testing</option>
+                <option value="UX writing">UX writing</option>
+                <option value="User interface design">User interface design</option>
+              </optgroup>
+              <optgroup label="V">
+                <option value="VB Script">VB Script</option>
+                <option value="verilog">verilog</option>
+                <option value="Version Control Systems">
+                  Version Control Systems
+                </option>
+                <option value="VFX">VFX</option>
+                <option value="Video Editing">Video Editing</option>
+                <option value="Virtualization">Virtualization</option>
+                <option value="Visual Communication">Visual Communication</option>
+                <option value="Visual Design">Visual Design</option>
+                <option value="Visual Studio">Visual Studio</option>
+                <option value="VPN">VPN</option>
+                <option value="Vue.js">Vue.js</option>
+              </optgroup>
+              <optgroup label="W">
+                <option value="Web Development">Web Development</option>
+                <option value="Web Performance Optimization (WPO)">
+                  Web Performance Optimization (WPO)
+                </option>
+                <option value="Web Security">Web Security</option>
+                <option value="Web Services">Web Services</option>
+                <option value="Windows">Windows</option>
+                <option value="Wireframing">Wireframing</option>
+                <option value="Wireless Networks">Wireless Networks</option>
+              </optgroup>
+              <optgroup label="X">
+                <option value="XML">XML</option>
+                <option value="XR SDKs">XR SDKs</option>
+              </optgroup>
+              <optgroup label="Z">
+                <option value="Zbrush">Zbrush</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="skill-level">Skill Level</label>
+            <select id="SkillLevel" class="form-select">
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="skillSubmit modal-button"
+          data-dismiss="modal"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Skills Script-->
+<script>
+  const skillSubmit = document.getElementsByClassName("skillSubmit");
+  const skillBody = document.getElementById("SkillBody");
+  const skillContainer = document.getElementById("SkillContainer");
+
+  function addSkillRow(e) {
+    e.preventDefault();
+    const skillName = document.getElementById("SkillName").value;
+    const skillLevel = document.getElementById("SkillLevel").value;
+
+    skillBody.innerHTML += `
+      <div class="col-lg-6 col-md-12">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 contents">
+              <p class="skill-name-style">${skillName}</p>
+              <p class="skill-level-style">${skillLevel}</p>
+            </div>
+        </div>
+      </div>
+    `;
+
+    if(skills.indexOf(skillName) == -1) {
+      skills.push(skillName);
+    }
+
+    document.getElementById("skill-form").reset();
+  }
+
+  skillSubmit[0].addEventListener("click", addSkillRow);
+</script>
+
+<!--Internship Modal-->
+<div
+  class="modal fade"
+  id="InternshipModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+  aria-labelledby="InternshipModal"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Internship</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="internship-form">
+          <div class="form-group">
+            <label for="company-name">Name of the Company:</label>
+            <input
+              type="text"
+              id="company-name"
+              class="form-control"
+              placeholder="Enter Company Name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="job-role">Technology used/ Job Role</label>
+            <select id="job-role" class="form-select">
+              <optgroup label="A">
+                <option value="AI as a Service">AI as a Service</option>
+                <option value="Application Analyst">Application Analyst</option>
+                <option value="Application Developer">
+                  Application Developer
+                </option>
+                <option value="Artificial Intelligence">
+                  Artificial Intelligence
+                </option>
+              </optgroup>
+              <optgroup label="B">
+                <option value="Backend Developer">Backend Developer</option>
+                <option value="Big Data">Big Data</option>
+                <option value="Bio Engineer">Bio Engineer</option>
+                <option value="Block Chain">Block Chain</option>
+                <option value="Business Analyst">Business Analyst</option>
+              </optgroup>
+              <optgroup label="C">
+                <option value="Cloud Computing">Cloud Computing</option>
+                <option value="Computee Network Engineering">
+                  Computee Network Engineering
+                </option>
+                <option value="Computer and Information Research Scientist">
+                  Computer and Information Research Scientist
+                </option>
+                <option value="Computer Hardware Engineering">
+                  Computer Hardware Engineering
+                </option>
+                <option value="CyberSecurity">CyberSecurity</option>
+              </optgroup>
+              <optgroup label="D">
+                <option value="Data Analysis/ Engineering">
+                  Data Analysis/ Engineering
+                </option>
+                <option value="Data base Administrator">
+                  Data base Administrator
+                </option>
+                <option value="Data Scientist">Data Scientist</option>
+                <option value="Devops">Devops</option>
+              </optgroup>
+              <optgroup label="E">
+                <option value="Edge Computing">Edge Computing</option>
+              </optgroup>
+              <optgroup label="F">
+                <option value="Front end Developer">Front end Developer</option>
+                <option value="Full Stack Development">
+                  Full Stack Development
+                </option>
+              </optgroup>
+              <optgroup label="G">
+                <option value="Game Designer">Game Designer</option>
+                <option value="Game Developer">Game Developer</option>
+              </optgroup>
+              <optgroup label="H">
+                <option value="HyperAutomation">HyperAutomation</option>
+              </optgroup>
+              <optgroup label="I">
+                <option value="Information Security Analyst">
+                  Information Security Analyst
+                </option>
+                <option value="Internet of Behaviors">
+                  Internet of Behaviors
+                </option>
+                <option value="Internet Of Things">Internet Of Things</option>
+                <option value="IT Project Manager">IT Project Manager</option>
+              </optgroup>
+              <optgroup label="M">
+                <option value="Mobile Apllication Development">
+                  Mobile Apllication Development
+                </option>
+              </optgroup>
+              <optgroup label="P">
+                <option value="Predictive Analytics">
+                  Predictive Analytics
+                </option>
+              </optgroup>
+              <optgroup label="S">
+                <option value="Snowflake">Snowflake</option>
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="System Analyst">System Analyst</option>
+                <option value="System Architect">System Architect</option>
+              </optgroup>
+              <optgroup label="U">
+                <option value="UX Designer">UX Designer</option>
+              </optgroup>
+              <optgroup label="V">
+                <option value="Virtual Reality and Augmented Reality">
+                  Virtual Reality and Augmented Reality
+                </option>
+              </optgroup>
+              <optgroup label="W">
+                <option value="Web Designer">Web Designer</option>
+                <option value="Web Developer">Web Developer</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input
+              type="text"
+              placeholder="Offline / Online"
+              id="location"
+              class="form-control"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="time">Time Period</label> <br />
+            <span class="from">From:</span>
+            <input type="date" class="form-control" id="time-from" />
+            <span class="to">To:</span>
+            <input type="date" class="form-control" id="time-to" />
+          </div>
+
+          <div class="form-group">
+            <label for="salary">Salary:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="salary"
+              placeholder="Enter Your Salary"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea
+              class="form-control"
+              row="5"
+              id="description"
+              cols="50"
+              placeholder="Enter a small description about your role."
+            ></textarea>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="internshipSubmit modal-button"
+          data-dismiss="modal"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Internship Script-->
+<script>
+  const InternshipSubmit = document.getElementsByClassName("internshipSubmit");
+  const internshipBody = document.getElementById("InternshipBody");
+  const internshipContainer = document.getElementById("internshipContainer");
+
+  function addSkillRow(e) {
+    e.preventDefault();
+    const companyName = document.getElementById("company-name").value;
+    const jobrole = document.getElementById("job-role").value;
+    const location = document.getElementById("location").value;
+    const timeFrom = document.getElementById("time-from").value;
+    const timeTo = document.getElementById("time-to").value;
+    const description = document.getElementById("description").value;
+    const salary = document.getElementById("salary").value;
+
+    internshipBody.innerHTML += `
+      <div class="col-lg-6 col-md-12">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 contents">
+              <p class="skill-name-style">${companyName}</p>
+              <p class="skill-level-style">${jobrole}</p>
+              <p class="skill-level-style">${location}</p>
+              <p class="skill-level-style">${
+                timeFrom + " to <br /> " + timeTo
+              }</p>
+              <p class="skill-level-style">${salary}</p>
+              <p class="skill-level-style">${description}</p>
+            </div>
+        </div>
+      </div>
+    `;
+
+      if(tech.indexOf(jobrole) == -1) {
+        tech.push(jobrole);
+      }
+
+  }
+  document.getElementById("internship-form").reset();
+  InternshipSubmit[0].addEventListener("click", addSkillRow);
+</script>
+
+<!--Training Modal-->
+<div
+  class="modal fade"
+  id="TrainingModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+  aria-labelledby="TrainingModal"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Trainings and Certifications</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form class="training-form">
+          <div class="form-group">
+            <label for="SkillName">Name of the skill:</label>
+            <select id="training-skill-name" class="form-select">
+              <option value="" select></option>
+              <optgroup label="A">
+                <option value="Adobe Photoshop">Adobe Photoshop</option>
+                <option value="Adobe XD">Adobe XD</option>
+                <option value="Agile Development">Agile development</option>
+                <option value="Ajax">Ajax</option>
+                <option value="Alteryx">Alteryx</option>
+                <option value="Amazon Redshift">Amazon Redshift</option>
+                <option value="Analog Design and Analysis">
+                  Analog Design and Analysis
+                </option>
+                <option value="Analytics">Analytics</option>
+                <option value="Android Studio">Android Studio</option>
+                <option value="Angular.js">Angular.js</option>
+                <option value="Ansible">Ansible</option>
+                <option value="Apache">Apache</option>
+                <option value="Apache Spark">Apache Spark</option>
+                <option value="APIs">APIs</option>
+                <option value="Appium">Appium</option>
+                <option value="Apple Xcode IDE">Apple Xcode IDE</option>
+                <option value="Application Development">
+                  Application development
+                </option>
+                <option value="AR/VR">AR/VR</option>
+                <option value="Artificial Intelligence">
+                  Artificial Intelligence
+                </option>
+                <option value="AWS">AWS</option>
+                <option value="Azure">Azure</option>
+                <option value="Azure Data ecosystem">
+                  Azure Data ecosystem
+                </option>
+              </optgroup>
+              <optgroup label="B">
+                <option value="bash">Bash</option>
+                <option value="Big data">Big data</option>
+                <option value="Blockchain">Blockchain</option>
+                <option value="Blockchain Architecture">
+                  Blockchain Architecture
+                </option>
+                <option value="Bootstrap">Bootstrap</option>
+                <option value="Bugfixes">Bugfixes</option>
+              </optgroup>
+              <optgroup label="C">
+                <option value="C">C Language</option>
+                <option value="C#">C#</option>
+                <option value="C++">C++/ Cpp</option>
+                <option value="CAD">CAD</option>
+                <option value="Cadence">Cadence</option>
+                <option value="Calculus">Calculus</option>
+                <option value="CDPS">CDPS</option>
+                <option value="Circuit Board Design">
+                  Circuit Board Design
+                </option>
+                <option value="Cloud Computing">Cloud Computing</option>
+                <option value="Cloud Security">Cloud Security</option>
+                <option value="COBOL">COBOL</option>
+                <option value="Command-line Utilities">
+                  Command-line Utilities
+                </option>
+                <option value="Communication Protocols">
+                  Communication Protocols
+                </option>
+                <option value="Computer Forensic Skills">
+                  Computer Forensic Skills
+                </option>
+                <option value="Computer Hardware knowledge">
+                  Computer Hardware knowledge
+                </option>
+                <option value="Computer Servers">Computer Servers</option>
+                <option value="Continuous Integration">
+                  Continuous Integration
+                </option>
+                <option value="Continuous Monitoring">
+                  Continuous Monitoring
+                </option>
+                <option value="CouchDB">CouchDB</option>
+                <option value="Cross Team's Environments">
+                  Cross Team's Environments
+                </option>
+                <option value="Cryptography">Cryptography</option>
+                <option value="CSS3">CSS3</option>
+                <option value="Customer Relationship Management">
+                  Customer Relationship Management
+                </option>
+                <option value="Cyber Security">Cyber Security</option>
+              </optgroup>
+              <optgroup label="D">
+                <option value="Data Analysis">Data Analysis</option>
+                <option value="Data Cleaning">Data Cleaning</option>
+                <option value="Data Mining">Data Mining</option>
+                <option value="Data Modeling">Data Modeling</option>
+                <option value="Data Privacy">Data Privacy</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Data Structures and Algorithms">
+                  Data Structures and Algorithms
+                </option>
+                <option value="Data Visualization tools">
+                  Data Visualization tools
+                </option>
+                <option value="Data Warehousing">Data Warehousing</option>
+                <option value="Data Wrangling">Data Wrangling</option>
+                <option value="Database">Database</option>
+                <option value="Database Architecture">
+                  Database Architecture
+                </option>
+                <option value="Debugging">Debugging</option>
+                <option value="Deep Learning">Deep Learning</option>
+                <option value="Descriptive Analysis">
+                  Descriptive Analysis
+                </option>
+                <option value="DevOps">DevOps</option>
+                <option value="DigitalOps">DigitalOps</option>
+                <option value="Disaster Recovery">Disaster Recovery</option>
+                <option value="Distributed Systems">Distributed Systems</option>
+                <option value="Django">Django</option>
+                <option value="Docker">Docker</option>
+              </optgroup>
+              <optgroup label="E">
+                <option value="Ember.js">Ember.js</option>
+                <option value="ETL">ETL</option>
+                <option value="Excel">Excel</option>
+                <option value="Express.js">Express.js</option>
+              </optgroup>
+              <optgroup label="F">
+                <option value="Figma">Figma</option>
+                <option value="File Formatting">File Formatting</option>
+                <option value="Firewall">Firewall</option>
+                <option value="Firmware Development">
+                  Firmware Development
+                </option>
+                <option value="Flask">Flask</option>
+                <option value="Flume">Flume</option>
+                <option value="Flutter">Flutter</option>
+              </optgroup>
+              <optgroup label="G">
+                <option value="Game Development">Game Development</option>
+                <option value="Game Engine">Game Engine</option>
+                <option value="Git">Git</option>
+                <option value="Github">Github</option>
+                <option value="Go Lang">Go Lang</option>
+                <option value="Google Cloud">Google Cloud</option>
+                <option value="Graphic Design">Graphic Design</option>
+              </optgroup>
+              <optgroup label="H">
+                <option value="Hacking">Hacking</option>
+                <option value="Hadoop">Hadoop</option>
+                <option value="Hadoop ecosystem">Hadoop ecosystem</option>
+                <option value="Halo">Halo</option>
+                <option value="HBase">HBase</option>
+                <option value="HDFS">HDFS</option>
+                <option value="Hive HQL">Hive HQL</option>
+                <option value="HTML5">HTML5</option>
+                <option value="Human Pyschology">Human Pyschology</option>
+              </optgroup>
+              <optgroup label="I">
+                <option value="Improvado">Improvado</option>
+                <option value="Information Architecture">
+                  Information Architecture
+                </option>
+                <option value="Information Security">
+                  Information Security
+                </option>
+                <option value="Infrastructure Security">
+                  Infrastructure Security
+                </option>
+                <option value="integrated development environment (IDE)">
+                  Integrated development environment (IDE)
+                </option>
+                <option
+                  value="Intelligent Business Project Management Suites (iBPMS)"
+                >
+                  Intelligent Business Project Management Suites (iBPMS)
+                </option>
+                <option value="Interaction Design">Interaction Design</option>
+                <option value="iOS">iOS</option>
+                <option value="IOT">IOT</option>
+              </optgroup>
+              <optgroup label="J">
+                <option value="JUnit">JUnit</option>
+                <option value="Java">Java</option>
+                <option value="Javascript">Javascript</option>
+                <option value="jQuery">jQuery</option>
+                <option value="Json">Json</option>
+              </optgroup>
+              <optgroup label="K">
+                <option value="Kafka">Kafka</option>
+                <option value="Kotlin">Kotlin</option>
+                <option value="Kubernetes">Kubernetes</option>
+              </optgroup>
+              <optgroup label="L">
+                <optgroup label="Lead Designer">Lead Designer</optgroup>
+                <option value="Linear Algebra">Linear Algebra</option>
+                <option value="Linux">Linux</option>
+                <option value="Lisp">Lisp</option>
+              </optgroup>
+              <optgroup label="M">
+                <option value="3D Modelling">3D Modelling</option>
+                <option value="Machine Learning">Machine Learning</option>
+                <option value="Matlab">Matlab</option>
+                <option value="Maya">Maya</option>
+                <option value="Microsoft Access">Microsoft Access</option>
+                <option value="Microsoft Administration">
+                  Microsoft Administration
+                </option>
+                <option value="MongoDb">MongoDb</option>
+                <option value="MPLS">MPLS</option>
+                <option value="MySQL">MySQL</option>
+              </optgroup>
+              <optgroup label="N">
+                <option value=".Net">.Net</option>
+                <option value="Natural Language Processing (NLP)">
+                  Natural Language Processing (NLP)
+                </option>
+                <option value="Network Analyzers">Network Analyzers</option>
+                <option value="Network Infrastructure">Network Infrastructure</option>
+                <option value="Network Protocols">Network Protocols</option>
+                <option value="Network Security">Network Security</option>
+                <option value="Network Switches">Network Switches</option>
+                <option value="Networking">Networking</option>
+                <option value="Neural Networks">Neural Networks</option>
+                <option value="NLTK">NLTK</option>
+                <option value="Node.js">Node.js</option>
+                <option value="NoSQL">NoSQL</option>
+              </optgroup>
+              <optgroup label="O">
+                <option value="Operating system">Operating system</option>
+                <option value="Oracle">Oracle</option>
+                <option value="Openstack">Openstack</option>
+              </optgroup>
+              <optgroup label="P">
+                <option value="Peer to Peer Network Security">Peer to Peer Network Security</option>
+                <option value="Perl">Perl</option>
+                <option value="PHP">PHP</option>
+                <option value="Pig">Pig</option>
+                <option value="Postman">Postman</option>
+                <option value="Powerbi">Powerbi</option>
+                <option value="PowerShell">PowerShell</option>
+                <option value="Probability">Probability</option>
+                <option value="Problem Solving">Problem Solving</option>
+                <optgroup label="Process Design">Process Design</optgroup>
+                <option value="Product Enhancement">Product Enhancement</option>
+                <option value="Project Management Skills">Project Management Skills</option>
+                <option value="Prolog">Prolog</option>
+                <option value="Prototyping">Prototyping</option>
+                <option value="Python">Python</option>
+              </optgroup>
+              <optgroup label="R">
+                <option value="R">R</option>
+                <option value="React.js">React.js</option>
+                <option value="Relational Databases">
+                  Relational Databases
+                </option>
+                <option value="RF Development">RF Development</option>
+                <option value="Risk Management">Risk Management</option>
+                <option value="RPA">RPA</option>
+                <option value="Ruby">Ruby</option>
+              </optgroup>
+              <optgroup label="S">
+                <option value="SaaS">SaaS</option>
+                <option value="SAP">SAP</option>
+                <option value="SAS">SAS</option>
+                <option value="Scala">Scala</option>
+                <option value="Search Engine Optimization (SEO)">
+                  Search Engine Optimization (SEO)
+                </option>
+                <option value="Search Experience Optimization (SXO)">
+                  Search Experience Optimization (SXO)
+                </option>
+                <option value="Security Automation">Security Automation</option>
+                <option value="Security Principles">Security Principles</option>
+                <option value="Security Protocols">Security Protocols</option>
+                <option value="Secure SDLC">Secure SDLC</option> 
+                <option value="Smart Contracts">Smart Contracts</option>
+                <option value="SnowPipe">SnowPipe</option>
+                <option value="SnowSQL">SnowSQL</option>
+                <option value="SOAP">SOAP</option>
+                <option value="SOC">SOC</option>
+                <option value="Software Development">
+                  Software Development
+                </option>
+                <option value="Software Development Life Cycle (SDLC)">Software Development Life Cycle (SDLC)</option>
+                <option value="Software Engineering">
+                  Software Engineering
+                </option>
+                <option value="Software Testing">Software Testing</option>
+                <option value="Solidity">Solidity</option>
+                <option value="Source Code Management">
+                  Source Code Management
+                </option>
+                <option value="Spatial reasoning">Spatial reasoning</option>
+                <option value="SPI">SPI</option>
+                <option value="SPSS">SPSS</option>
+                <option value="SQL">SQL</option>
+                <option value="SQL Server">SQL Server</option>
+                <option value="Sqoop">Sqoop</option>
+                <option value="Statistics">Statistics</option>
+                <option value="Streams">Streams</option>
+                <option value="Swagger">Swagger</option>
+                <option value="Swift">Swift</option>
+                <option value="Switching and Routing">
+                  Switching and Routing
+                </option>
+                <option value="Syntactic & Semantic Parsing">Syntactic & Semantic Parsing</option>
+                <option value="System Architecture">System Architecture</option>
+                <option value="System Design">System Design</option>
+                <option value="System Development">System Development</option>
+              </optgroup>
+              <optgroup label="T">
+                <option value="tableau">tableau</option>
+                <option value="Tcl">Tcl</option>
+                <option value="TensorFlow">TensorFlow</option>
+                <option value="Testing">Testing</option>
+                <option value="Troubleshooting">Troubleshooting</option>
+                <option value="Truffle">Truffle</option>
+                <option value="Typescript">Typescripts</option>
+                <option value="Typography">Typography</option>
+              </optgroup>
+              <optgroup label="U">
+                <option value="UI prototyping">UI prototyping</option>
+                <option value="UI ToolKits and Frameworks">
+                  UI ToolKits and Frameworks
+                </option>
+                <option value="UI/ UX Design">UI/ UX Design</option>
+                <option value="UML">UML</option>
+                <option value="Unity">Unity</option>
+                <option value="Unix">Unix</option>
+                <option value="Unreal Engine">Unreal Engine</option>
+                <option value="User Experience">User Experience</option>
+                <option value="User Interface">User Interface</option>
+                <option value="User testing">User testing</option>
+                <option value="UX writing">UX writing</option>
+                <option value="User interface design">User interface design</option>
+              </optgroup>
+              <optgroup label="V">
+                <option value="VB Script">VB Script</option>
+                <option value="verilog">verilog</option>
+                <option value="Version Control Systems">
+                  Version Control Systems
+                </option>
+                <option value="VFX">VFX</option>
+                <option value="Video Editing">Video Editing</option>
+                <option value="Virtualization">Virtualization</option>
+                <option value="Visual Communication">Visual Communication</option>
+                <option value="Visual Design">Visual Design</option>
+                <option value="Visual Studio">Visual Studio</option>
+                <option value="VPN">VPN</option>
+                <option value="Vue.js">Vue.js</option>
+              </optgroup>
+              <optgroup label="W">
+                <option value="Web Development">Web Development</option>
+                <option value="Web Performance Optimization (WPO)">
+                  Web Performance Optimization (WPO)
+                </option>
+                <option value="Web Security">Web Security</option>
+                <option value="Web Services">Web Services</option>
+                <option value="Windows">Windows</option>
+                <option value="Wireframing">Wireframing</option>
+                <option value="Wireless Networks">Wireless Networks</option>
+              </optgroup>
+              <optgroup label="X">
+                <option value="XML">XML</option>
+                <option value="XR SDKs">XR SDKs</option>
+              </optgroup>
+              <optgroup label="Z">
+                <option value="Zbrush">Zbrush</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="platform">Platform of Study</label>
+            <input
+              type="text"
+              id="platform"
+              class="form-control"
+              placeholder="Enter Platform"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="training-time">Time Period</label> <br />
+            <span class="from">From:</span>
+            <input type="date" class="form-control" id="training-from" />
+            <span class="to">To:</span>
+            <input type="date" class="form-control" id="training-to" />
+          </div>
+
+          <div class="form-group">
+            <label for="training-description">Description:</label>
+            <textarea
+              class="form-control"
+              row="5"
+              id="training-description"
+              cols="50"
+              placeholder="Enter a small description about your training."
+            ></textarea>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="trainingSubmit modal-button"
+          data-dismiss="modal"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Training Script-->
+<script>
+  const TrainingSubmit = document.getElementsByClassName("trainingSubmit");
+  const trainingBody = document.getElementById("TrainingBody");
+  const trainingContainer = document.getElementById("TrainingContainer");
+
+  function addSkillRow(e) {
+    e.preventDefault();
+    const trainingSkillName = document.getElementById(
+      "training-skill-name"
+    ).value;
+    const platform = document.getElementById("platform").value;
+    const trainingTimeFrom = document.getElementById("training-from").value;
+    const trainingTimeTo = document.getElementById("training-to").value;
+    const description = document.getElementById("training-description").value;
+
+    trainingBody.innerHTML += `
+    <div class="col-lg-6 col-md-12">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 contents">
+            <p class="skill-name-style">${trainingSkillName}</p>
+            <p class="skill-level-style">${platform}</p>
+            <p class="skill-level-style">${
+              trainingTimeFrom + " to <br />" + trainingTimeTo
+            }</p>
+            <p class="skill-level-style">${description}</p>
+          </div>
+      </div>
+    </div>
+    `;
+
+    if(skills.indexOf(trainingSkillName) == -1) {
+      skills.push(trainingSkillName);
+    }
+
+  }
+
+  TrainingSubmit[0].addEventListener("click", addSkillRow);
+</script>
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"
+></script>
+
+{% endblock %}

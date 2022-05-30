@@ -1,0 +1,148 @@
+{%extends "layout.html"%}
+{%block content%}
+
+<nav class="navbar navbar-expand-md navbar-light">
+  <a class="navbar-brand" href="{{url_for('home')}}"
+    ><img class="logo" src="../static/images/logo.png"
+  /></a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarToggler"
+    aria-controls="navbarToggler"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarToggler">
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a href="{{url_for('home')}}" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{url_for('getStarted')}}" class="nav-link">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{url_for('aboutUs')}}" class="nav-link">About Us</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <h1 class="mainHeading">
+        <span style="color: #e16428">Career Path Recommendation</span><br />
+        <span style="color: #272121">using Machine Learning</span>
+      </h1>
+    </div>
+  </div>
+</section>
+   <div class="container">
+      <div class=" row">
+        <div class="col-lg-3"></div>   
+       <div class="col-lg-6 col-sm-12">
+      <form method="post" action="">
+      {{form.hidden_tag()}}
+        <fieldset class="form-group">
+           <legend class="border-bottom mb-4 recc text-center" style="font-size: 2rem;">Recruiter Registeration form</legend>
+           <div class="form-group">
+            {{form.companyname.label(class="form-control-label form-headings")}}
+            {% if  form.companyname.errors%}
+            {{form.companyname(class="form-control from-control-lg is-invalid", placeholder="Enter your Full Name")}}
+            <div class="invalid-feedback">
+                {% for e in form.companyname.errors%}
+                    <span>{{e}}</span>
+                    
+                {% endfor %}
+            </div>             
+            {%else%}
+            {{form.companyname(class="form-control from-control-lg", placeholder="Enter your Full Name")}}
+            {% endif %} 
+
+           
+        </div>
+           <div class="form-group">
+            {{form.username.label(class="form-control-label form-headings")}}
+            {% if  form.username.errors%}
+            {{form.username(class="form-control from-control-lg is-invalid", placeholder="Enter your Full Name")}}
+            <div class="invalid-feedback">
+                {% for e in form.username.errors%}
+                    <span>{{e}}</span>
+                    
+                {% endfor %}
+            </div>             
+            {%else%}
+            {{form.username(class="form-control from-control-lg", placeholder="Enter your Full Name")}}
+            {% endif %} 
+
+           
+        </div>
+        <div class="form-group">
+            {{form.email.label(class="form-control-label form-headings")}}
+            {% if  form.email.errors%}
+            {{form.email(class="form-control from-control-lg is-invalid", placeholder="Enter your Email")}}
+            <div class="invalid-feedback">
+                {% for e in form.email.errors%}
+                    <span>{{e}}</span>
+                    
+                {% endfor %}
+            </div>             
+            {%else%}
+            {{form.email(class="form-control from-control-lg", placeholder="Enter your Email")}}
+            {% endif %} 
+        </div>    
+        
+        <div class="form-group">
+            {{form.password.label(class="form-control-label form-headings")}}
+            {% if  form.password.errors%}
+            {{form.password(class="form-control from-control-lg is-invalid", placeholder="Password")}}
+            <div class="invalid-feedback">
+                {% for e in form.password.errors%}
+                    <span>{{e}}</span>
+                    
+                {% endfor %}
+            </div>             
+            {%else%}
+            {{form.password(class="form-control from-control-lg", placeholder="Password")}}
+            {% endif %} 
+        </div>
+        <div class="form-group">
+            {{form.confirm_password.label(class="form-control-label form-headings")}}
+            {% if  form.confirm_password.errors%}
+            {{form.confirm_password(class="form-control from-control-lg is-invalid", placeholder="Confirm_Password")}}
+            <div class="invalid-feedback">
+                {% for e in form.confirm_password.errors%}
+                    <span>{{e}}</span>
+                    
+                {% endfor %}
+            </div>             
+            {%else%}
+            {{form.confirm_password(class="form-control from-control-lg", placeholder="Confirm_Password")}}
+            {% endif %} 
+        </div>
+        
+        </fieldset>
+        <div class="form-group">
+            <div class="text-center">
+            {{form.submit(class="modal-button submit-wrapper")}}
+            </div>
+        </div>
+
+     </form>
+     <div class="border-top pt-3">
+         <small class="text-muted">
+             Already Have An Account? <a class="ml-2" href="{{url_for('rlogin')}}">sign In</a>
+
+         </small>
+     </div>
+    </div>
+    <div class="col-lg-3"></div>
+    </div>
+
+
+   </div>
+   {%endblock content%}

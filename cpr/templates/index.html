@@ -1,0 +1,26 @@
+{% extends 'layout.html' %} {% block content %}
+
+<section class="home">
+  <img src="../static/images/home-bg.jpg" alt="" id="home-background-img" />
+  <img src="../static/images/home-bg-2.jpg" id="home-background-img-2" />
+
+  <h1 class="heading">
+    <span class="topic">Career Path Recommendations</span><br />
+    using Machine Learning
+  </h1>
+
+  <p class="subheading">
+    Confused about what career to choose after graduation?? This website will
+    solve that using just one click!!!
+  </p>
+
+  <div class="button-wrapper-home">
+    <a href="{{url_for('login')}}">
+      <button class="get-started">
+        <span>Get Started Now...</span>
+      </button>
+    </a>
+  </div>
+</section>
+
+{% endblock %}
